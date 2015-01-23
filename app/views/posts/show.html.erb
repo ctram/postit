@@ -1,0 +1,19 @@
+<p>
+  <!-- What is happening here: render looks at @post.categories and
+  automatically look for a file called: /views/categories/_category.html.erb
+  Rails then iterates across categories array-like-object and renders
+  the _category.html.erb file.
+  This line of code is the same as:
+
+    <% @post.categories.each do |category| %>
+      <%= render '/categories/category', category: category %> # Note this is creating a local variable (available to _category.html.erb) and setting it to the category local variable belonging to the iteration block.
+    <% end %> -->
+  <%= render @post.categories %>
+</p>
+
+<%= render '/shared/content_title', title: @post.title %>
+
+<p>
+  <%= @post.description %>
+  <hr/>
+</p>

@@ -1,0 +1,11 @@
+
+<h5>Rails model-backed form helpers</h5>
+
+<%= form_for @post do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <%= f.label :user_id %>
+  <%= f.text_field :user_id %>
+  <br>
+  <%= f.submit 'Submit Post', class: 'btn btn-primary' %>
+<% end %>
