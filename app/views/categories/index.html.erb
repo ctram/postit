@@ -1,0 +1,12 @@
+<%= render '/shared/content_title', title:'Categories' %>
+
+<% @categories.each do |cat| %>
+  <p>
+    <span class='badge'>
+      <%= cat.name %>
+    </span>
+  </p>
+<% end %>
+
+<br><br>
+<%= link_to 'Add New Category', new_category_path %>

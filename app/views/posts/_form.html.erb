@@ -1,5 +1,6 @@
-
+<!-- <#% binding.pry %> -->
 <h5>Rails model-backed form helpers</h5>
+
 
 <%= form_for @post do |f| %>
   <%= f.label :title %>
@@ -7,5 +8,10 @@
   <%= f.label :user_id %>
   <%= f.text_field :user_id %>
   <br>
-  <%= f.submit 'Submit Post', class: 'btn btn-primary' %>
+  <% if action == 'edit' %>
+    <% str = 'Update Post' %>
+  <% else %>
+    <% str = 'Submit Post' %>
+  <% end %>
+  <%= f.submit str, class: 'btn btn-primary' %>
 <% end %>

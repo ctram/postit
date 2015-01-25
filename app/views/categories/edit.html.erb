@@ -1,0 +1,16 @@
+<%= render '/shared/content_title', title:'Edit category name' %>
+
+<%= form_for @category do |f| %>
+<%= f.label 'Category name' %>
+<%= f.text_field :name %>
+<br>
+<% create_str = 'Create category' %>
+<% update_str = 'Update category name' %>
+<% if @title = 'edit'%>
+  <% str = update_str %>
+<% else %>
+    <% str = create_str  %>
+<% end %>
+
+<%= f.submit str, class: 'btn btn-primary' %>
+<% end %>

@@ -7,4 +7,6 @@ PostitTemplate::Application.routes.draw do
     resources :comments
   end
 
+  resources :categories, except: :destroy
+
 end
