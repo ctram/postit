@@ -1,0 +1,27 @@
+<% all_posts = link_to('All Posts', posts_path) %>
+
+<%= render '/shared/content_title', title:"#{all_posts} &raquo #{@category.name}".html_safe %> <!-- By default, Rails prevents code from being injected into the view template (in case this is an attack), so Rails automatically escapes all strings unless you use the html_safe method.) -->
+
+
+
+  <% @category.posts.each do |post| %>
+    <div class='row'>
+      <div class='span8 well'>
+        <% post.categories.each do |cat| %>
+            <%= link_to cat.name, category_path(cat), class:'badge' %>
+        <% end %>
+
+        <h4><%= link_to post.title, post.url %></h4>
+        <p><%= post.description %></p>
+        <p>
+          <span class='quiet'>posted by</span> <%= post.user.username %>
+          <small>at <%= post.created_at %> </small>
+        </p>
+        <p>
+          <%= link_to "#{post.comments.size} comments", post_path(post) %>
+          |
+          <%= link_to "edit", edit_post_path(post) %>
+        </p>
+      </div>
+    </div>
+  <% end %>

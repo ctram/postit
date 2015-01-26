@@ -1,5 +1,5 @@
 <%= render '/shared/content_title', title:'Edit a Post' %>
 
-<%= render 'error' %>
+<%= render '/shared/error', obj:@post %>
 
 <%= render 'form', action:'edit' %>

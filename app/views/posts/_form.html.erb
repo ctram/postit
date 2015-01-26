@@ -1,17 +1,22 @@
 <!-- <#% binding.pry %> -->
 <h5>Rails model-backed form helpers</h5>
 
+<div class='well'>
+  <%= form_for @post do |f| %>
 
-<%= form_for @post do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
-  <%= f.label :user_id %>
-  <%= f.text_field :user_id %>
-  <br>
-  <% if action == 'edit' %>
-    <% str = 'Update Post' %>
-  <% else %>
-    <% str = 'Submit Post' %>
+    <%= f.label :user_id %>
+    <%= f.text_field :user_id %>
+
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+
+    <%= f.label :url %>
+    <%= f.text_field :url %>
+
+    <%= f.label :description %>
+    <%= f.text_area :description, rows: 10 %>
+
+    <br>
+    <%= f.submit (@post.new_record? ? 'Create post' : 'Update post'), class:'btn btn-primary' %>
   <% end %>
-  <%= f.submit str, class: 'btn btn-primary' %>
-<% end %>
+</div>

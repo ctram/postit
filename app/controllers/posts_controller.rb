@@ -1,11 +1,12 @@
 require 'pry'
 class PostsController < ApplicationController
+  before_action :set_post, only: [:show,:edit, :update]
+
   def index
     @posts = Post.all
   end
 
   def show
-    @post = Post.find(params[:id])
   end
 
   def new
@@ -23,11 +24,9 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
   end
 
   def update
-    @post = Post.find(params[:id])
     if @post.update(post_params)
       flash[:notice] = 'Your post was updated.'
       redirect_to posts_path
@@ -41,6 +40,10 @@ class PostsController < ApplicationController
   # Strong parameters. This dictates which object attribute (the columns in your table in the database) is submittable by the client/browser, i.e. through a form submission or through direct coding into the address bar. This prevent hacking of your server.
   def post_params
     params.require(:post).permit!
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
   end
 
 end
