@@ -1,5 +1,7 @@
 <%= render '/shared/content_title', title:'New Category' %>
 
+<%= render '/shared/error', obj:@category %>
+
 <%= form_for @category do |f| %>
   <%= f.label 'Category name' %>
   <%= f.text_field :name %>

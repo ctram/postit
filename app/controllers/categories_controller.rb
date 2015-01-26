@@ -11,9 +11,13 @@ class CategoriesController < ApplicationController
   def create
     # binding.pry
     # Use of strong parameters instead of
-    # @category = Category.create(params[:category])
-    @category = Category.create(category_params)
-    redirect_to categories_path
+    @category = Category.new(category_params)
+    if @category.save
+      flash[:notice] = 'Your category was saved.'
+      redirect_to categories_path
+    else
+      render :new
+    end
   end
 
   def edit
