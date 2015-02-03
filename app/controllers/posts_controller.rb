@@ -11,7 +11,6 @@ class PostsController < ApplicationController
     @comments = Comment.all
     @categories = Category.all
     @post = Post.find(params[:id])
-    # binding.pry
   end
 
   def new
@@ -19,7 +18,6 @@ class PostsController < ApplicationController
   end
 
   def create
-    binding.pry
     @post = Post.new(post_params) # Note the use the strong paramets instead of Post.new(params[post])
     if @post.save
       flash[:notice] = 'Your post was created.'
@@ -45,7 +43,7 @@ class PostsController < ApplicationController
 
   # Strong parameters. This dictates which object attribute (the columns in your table in the database) is submittable by the client/browser, i.e. through a form submission or through direct coding into the address bar. This prevent hacking of your server.
   def post_params
-    params.require(:post).permit(:title, :url, :user_id, :description, category_ids: []) # note the virtual attribute 'category_ids' is written here like a hash key/value pair! 
+    params.require(:post).permit(:title, :url, :user_id, :description, category_ids: []) # note the virtual attribute 'category_ids' is written here like a hash key/value pair!
   end
 
   def set_post
