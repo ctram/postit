@@ -1,13 +1,15 @@
 require 'pry'
 
 class CommentsController < ApplicationController
+  before_action :require_user
+
   def create
-    # binding.pry
     @comment = Comment.new(params.require(:comment).permit(:body))
-    @comment.user = User.first
+    @comment.user_id = current_user.id
     @comment.post = Post.find(params[:post_id] )
     @comments = Comment.all
     @post = Post.find(params[:post_id])
+    binding.pry
 
     if @comment.save
       flash[:notice] = 'Comment saved'

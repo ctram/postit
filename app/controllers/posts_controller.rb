@@ -1,6 +1,7 @@
 require 'pry'
 class PostsController < ApplicationController
   before_action :set_post, only: [:show,:edit, :update]
+  before_action :require_user, except: [:index, :show]
 
   def index
     @posts = Post.all
@@ -15,10 +16,13 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @post.user_id = current_user.id
   end
 
   def create
+    # binding.pry
     @post = Post.new(post_params) # Note the use the strong paramets instead of Post.new(params[post])
+    @post.user = current_user
     if @post.save
       flash[:notice] = 'Your post was created.'
       redirect_to posts_path

@@ -12,6 +12,10 @@
 </p>
 
 <%= render '/shared/content_title', title: @post.title %>
+<div class='quiet'>
+  posted by <%= @post.user.username %>
+</div>
+<br><BR>
 
 <p>
   <%= @post.description %>
@@ -21,23 +25,25 @@
 
 <%= render '/shared/error', obj: @comment %>
 
-<h5>Leave a comment</h5>
-
-<p>
-  <%= form_for [@post,@comment] do |f| %>
-    <%= f.text_area :body  %>
-    <br>
-    <%= f.submit 'Submit comment' %>
-  <% end %>
-</p>
+<% if logged_in? %>
+  <h5>Leave a comment</h5>
+  <p>
+    <%= form_for [@post,@comment] do |f| %>
+      <%= f.text_area :body  %>
+      <br>
+      <%= f.submit 'Submit comment' %>
+    <% end %>
+  </p>
+<% end %>
 
 <h3>Comments</h3>
 
 <% if @post.comments.length != 0 %>
   <% @post.comments.each do |comment| %>
-    <h5>Someone says:</h5>
-    <%= comment.body %>
-    <br><br>
+    <div class = 'well span8'>
+      <h5><%= comment.user.username %> says at <%= display_datetime(@post.created_at) %>:</h5>
+      <%= comment.body %>
+    </div>
   <% end %>
 <% end %>
 <br><br>
