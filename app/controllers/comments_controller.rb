@@ -1,4 +1,4 @@
-require 'pry'
+# require 'pry'
 
 class CommentsController < ApplicationController
   before_action :require_user

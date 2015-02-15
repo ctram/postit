@@ -3,10 +3,15 @@ require 'pry'
 class UsersController < ApplicationController
   def new
     @user = User.new
+    @title = 'Register'
+  end
+
+  def show
+    # XXX: changed params[:user_id] to params[:id] -- something might break!!!
+    @user = User.find(params[:id])
   end
 
   def create
-    # binding.pry
     @user = User.new(user_params)
 
     if params[:user][:password] != params[:user][:password_confirmation]
@@ -14,7 +19,8 @@ class UsersController < ApplicationController
       render :new
     else
       if @user.save
-        flash[:notice] = 'You\'ve successfully registered!'
+        flash[:notice] = 'You\'ve successfully registered and are now logged in!!'
+        session[:user_id] = @user.id
         redirect_to posts_path
       else
         render :new
@@ -24,6 +30,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @title = 'Edit profile'
   end
 
   def update

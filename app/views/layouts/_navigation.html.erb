@@ -38,7 +38,7 @@
       Hi <%= current_user.username %>!
     </li>
     <li>
-      <%= link_to 'Log out', logout_path %>
+      <%= link_to "Log out", logout_path, :confirm =>"Are you sure you want to logout?" %>
     </li>
   <% else %>
     <li>

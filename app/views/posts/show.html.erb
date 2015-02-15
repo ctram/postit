@@ -13,7 +13,10 @@
 
 <%= render '/shared/content_title', title: @post.title %>
 <div class='quiet'>
-  posted by <%= @post.user.username %>
+  <% user_id = @post.user.id %>
+  posted by
+  <%= link_to @post.user.username, user_path(@post.user) %>
+
 </div>
 <br><BR>
 

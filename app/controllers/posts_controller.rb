@@ -1,10 +1,11 @@
-require 'pry'
+# require 'pry'
 class PostsController < ApplicationController
   before_action :set_post, only: [:show,:edit, :update]
   before_action :require_user, except: [:index, :show]
 
   def index
     @posts = Post.all
+    @title = 'Posts'
   end
 
   def show
@@ -12,11 +13,13 @@ class PostsController < ApplicationController
     @comments = Comment.all
     @categories = Category.all
     @post = Post.find(params[:id])
+    @title = @post.title
   end
 
   def new
     @post = Post.new
     @post.user_id = current_user.id
+    @title = 'Create a new post'
   end
 
   def create

@@ -1,4 +1,4 @@
-require 'pry'
+# require 'pry'
 class CategoriesController < ApplicationController
   def index
     @categories = Category.all

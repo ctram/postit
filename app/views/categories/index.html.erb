@@ -3,7 +3,7 @@
 <% @categories.each do |cat| %>
   <p>
     <span class='badge'>
-      <%= cat.name %>
+      <%= link_to cat.name, category_path(cat) %>
     </span>
   </p>
 <% end %>
