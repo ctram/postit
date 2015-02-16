@@ -24,4 +24,12 @@ class ApplicationController < ActionController::Base
       redirect_to posts_path
     end
   end
+
+  # Require that the current user must match the edit_user pages, i.e. restrict access to pages that can change the data of other users.
+  def require_user_access_personal
+    if current_user != User.find(params[:id])
+      flash[:notice] = 'You must be logged in as that user in order to access that page.'
+      redirect_to posts_path
+    end
+  end
 end

@@ -1,6 +1,8 @@
 require 'pry'
 
 class UsersController < ApplicationController
+  before_action :require_user_access_personal, only:[:edit, :update]
+
   def new
     @user = User.new
     @title = 'Register'
@@ -13,7 +15,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
     if params[:user][:password] != params[:user][:password_confirmation]
       flash[:notice] = 'Passwords do not match.'
       render :new
@@ -34,7 +35,8 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.new(user_params)
+    # TODO: let user update profile data - rightn ow user cannot update because Rails validates the username and requires it to be unique.
+    binding.pry
 
     if @user.save
       flash[:notice] = 'You\'ve successfully updated your profile.'
@@ -47,6 +49,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :password) # note here that password is a VIRTUAL attribute, i.e. it is NOT part of your object's table, yet you still need to run it through strong parameters in order to have it work properly.
+    params.require(:user).permit(:username, :password, :time_zone) # note here that password is a VIRTUAL attribute, i.e. it is NOT part of your object's table, yet you still need to run it through strong parameters in order to have it work properly.
   end
 end

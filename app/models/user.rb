@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :user_teams
   has_many :teams, through: :user_teams
   has_secure_password validations: false
-  validates :username, presence: true, uniqueness: true
+  validates :username, presence: true, uniqueness: true, on: [:update]
   validates :password, presence: true, on: :create, length: {minimum: 3}
+  validates :time_zone, presence: true
 end
