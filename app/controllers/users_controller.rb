@@ -36,11 +36,11 @@ class UsersController < ApplicationController
 
   def update
     # TODO: let user update profile data - rightn ow user cannot update because Rails validates the username and requires it to be unique.
-    binding.pry
+    @user = User.find(params[:id])
 
-    if @user.save
+    if @user.update(user_params)
       flash[:notice] = 'You\'ve successfully updated your profile.'
-      redirect_to users_path
+      redirect_to user_path(@user)
     else
       render :edit
     end
