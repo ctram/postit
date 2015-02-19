@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    # TODO: let user update profile data - right now user cannot update because Rails validates the username and requires it to be unique.
+    # FIXME: let user update profile data - right now user cannot update because Rails requires that the password and confirmation match, even if the user does NOT want to change his password.
     @user = User.find(params[:id])
 
     if @user.update(user_params)
@@ -49,6 +49,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :password, :time_zone) # note here that password is a VIRTUAL attribute, i.e. it is NOT part of your object's table, yet you still need to run it through strong parameters in order to have it work properly.
+    params.require(:user).permit(:username, :password, :password_confirmation, :time_zone) # note here that password is a VIRTUAL attribute, i.e. it is NOT part of your object's table, yet you still need to run it through strong parameters in order to have it work properly.
   end
 end

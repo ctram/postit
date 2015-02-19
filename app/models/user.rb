@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
   has_secure_password validations: false
   validates :username, presence: true, uniqueness: true
   validates :password, presence: true, on: :create, length: {minimum: 3}
+  # FIXME: Something broken about password validations related to password confirmation.
   validates_confirmation_of :password
-  validates_presence_of :password_confirmation
+  # validates_presence_of :password_confirmation
   validates :time_zone, presence: true
 end
