@@ -35,7 +35,11 @@ class UsersController < ApplicationController
   end
 
   def update
-    # FIXME: let user update profile data - right now user cannot update because Rails requires that the password and confirmation match, even if the user does NOT want to change his password.
+    # XXX: User can now:
+              # update profile with blank password and blank confirmation,
+                # so long as they are BOTH blank.
+              # if one is not blank, validation will fire and tell
+                # User that password and confirmation must match.
     @user = User.find(params[:id])
     if params[:user][:password_confirmation] != params[:user][:password]
       flash[:notice] = 'Your password and password confirmation must match.'

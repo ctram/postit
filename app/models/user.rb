@@ -11,13 +11,6 @@ class User < ActiveRecord::Base
   validates :password, on: :create, presence: true, length: {minimum: 3}
   validates :password, on: :update, length: {minimum: 3}, allow_blank: true
 
-  # FIXME: Something broken about password validations related to password confirmation.
-  validates_confirmation_of :password, allow_blank: true
-  # validates_presence_of :password_confirmation
+  # validates_confirmation_of :password, allow_blank: true
   validates :time_zone, presence: true
 end
-
-# X - no password and no confirmation
-# X - when there is a password but no confirmation
-# when there is no password bu there is confirmation
-  # Passes validations and does NOT update the user's password
