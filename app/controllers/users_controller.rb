@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    # TODO: let user update profile data - rightn ow user cannot update because Rails validates the username and requires it to be unique.
+    # TODO: let user update profile data - right now user cannot update because Rails validates the username and requires it to be unique.
     @user = User.find(params[:id])
 
     if @user.update(user_params)
