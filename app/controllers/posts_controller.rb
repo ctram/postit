@@ -1,4 +1,3 @@
-# require 'pry'
 class PostsController < ApplicationController
   before_action :set_post, only: [:show,:edit, :update]
   before_action :require_user, except: [:index, :show]
@@ -23,7 +22,6 @@ class PostsController < ApplicationController
   end
 
   def create
-    # binding.pry
     @post = Post.new(post_params) # Note the use the strong paramets instead of Post.new(params[post])
     @post.user = current_user
     if @post.save
