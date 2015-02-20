@@ -12,6 +12,7 @@ gem 'bootstrap-sass', '~> 2.3.2.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
+gem 'pry'
 
 gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -22,7 +23,6 @@ end
 group :development do
   gem 'quiet_assets'
   gem 'sqlite3'
-  gem 'pry'
 end
 
 group :production do
