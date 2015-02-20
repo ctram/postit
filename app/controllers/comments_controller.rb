@@ -1,8 +1,6 @@
 
 class CommentsController < ApplicationController
   before_action :require_user
-  before_action :require_user_access_personal
-
   def create
     @comment = Comment.new(params.require(:comment).permit(:body))
     @comment.user_id = current_user.id
