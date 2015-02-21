@@ -7,6 +7,9 @@ PostitTemplate::Application.routes.draw do
   post 'login', to: 'sessions#create'
   get 'logout', to: 'sessions#destroy'
 
+  get '/posts/:id/up_vote_post', to: 'votes#up_vote_post', as: 'up_vote_post'
+  get '/posts/:id/down_vote_post', to: 'votes#down_vote_post', as: 'down_vote_post'
+
 
   resources :posts, except: :destroy do
     resources :comments, only: :create

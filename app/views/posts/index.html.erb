@@ -2,7 +2,22 @@
 
 <% @posts.reverse.each do |post| %>
   <div class='row'>
-    <div class='span8 well'>
+    <div class='span0 well text-center'>
+      <% params[:vote_bool] = true %>
+      <%= link_to up_vote_post_path(post) do %>
+        <span class='icon-arrow-up'></span>
+      <% end %>
+      <br>
+      <% up_votes = post.votes.select{|x| x.vote == true}.count %>
+      <% down_votes = post.votes.select{|x| x.vote != true}.count %>
+      <% net_votes = up_votes - down_votes %>
+      <%= net_votes %>
+      <br>
+      <%= link_to down_vote_post_path(post) do %>
+        <span class='icon-arrow-down'></span>
+      <% end %>
+    </div>
+    <div class='span11 well'>
       <%= render post.categories %>
       <h4><%= link_to post.title, url_fixer(post.url) %></h4>
       <p><%= post.description %></p>
@@ -23,3 +38,13 @@
     </div>
   </div>
 <% end %>
+<div class='container'>
+  <div class='row'>
+    <div class='span3'>
+      Something
+    </div>
+    <div class='span9'>
+      Something else
+    </div>
+  </div>
+</div>
