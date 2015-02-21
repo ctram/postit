@@ -41,17 +41,17 @@ class UsersController < ApplicationController
               # if one is not blank, validation will fire and tell
                 # User that password and confirmation must match.
     @user = User.find(params[:id])
-    if params[:user][:password_confirmation] != params[:user][:password]
-      flash[:notice] = 'Your password and password confirmation must match.'
-      render :edit
-    else
+    # if params[:user][:password_confirmation] != params[:user][:password]
+    #   flash[:notice] = 'Your password and password confirmation must match.'
+    #   render :edit
+    # else
       if @user.update(user_params)
         flash[:notice] = 'You\'ve successfully updated your profile.'
         redirect_to user_path(@user)
       else
         render :edit
       end
-    end
+    # end
   end
 
   private
