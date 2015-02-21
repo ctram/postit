@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
   def require_user
     if !logged_in?
-      flash[:notice] = 'You must be logged in to do that.'
+      flash[:error] = 'You must be logged in to do that.'
       redirect_to posts_path
     end
   end
@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   # Require that the current user must match the edit_user pages, i.e. restrict access to pages that can change the data of other users.
   def require_user_access_personal
     if current_user != User.find(params[:id])
-      flash[:notice] = 'You must be logged in as that user in order to access that page.'
+      flash[:error] = 'You must be logged in as that user in order to access that page.'
       redirect_to posts_path
     end
   end
