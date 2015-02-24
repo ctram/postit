@@ -1,7 +1,6 @@
 class Vote < ActiveRecord::Base
   belongs_to :user
   belongs_to :voteable, polymorphic:true
-  # TODO: User can only change the total vote by +1 or -1 max.
 
   def Vote.sum_votes_by_user_by_voteable_id voteable_id, user
     user_votes = Vote.all.select do |vote|

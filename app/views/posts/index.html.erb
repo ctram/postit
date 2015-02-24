@@ -5,6 +5,7 @@
     <div class='span0 well text-center'>
       <% params[:vote_bool] = true %>
 
+      <!-- # TODO: should be able to extract this into a partial########## -->
       <% if logged_in? %>
         <%= link_to up_vote_post_path(post) do %>
           <span class='icon-arrow-up'></span>
@@ -23,6 +24,7 @@
           <span class='icon-arrow-down'></span>
         <% end %>
       <% end %>
+      <!-- ############################################################### -->
 
     </div>
     <div class='span11 well'>
