@@ -1,5 +1,15 @@
 <%= render '/shared/content_title', title:'Posts' %>
-<%  %>
+
+<% @posts = @posts.sort_by do |post| %>
+  <% total_votes = post.votes.reduce(0) do |m,vote| %>
+    <% if vote.vote %>
+      <% m + 1 %>
+    <% else %>
+      <% m - 1 %>
+    <% end %>
+  <% end %>
+<% end %>
+
 <% @posts.reverse.each do |post| %>
   <div class='row'>
     <div class='span0 well text-center'>
@@ -16,8 +26,7 @@
       <% up_votes = post.votes.select{|x| x.vote == true}.count %>
       <% down_votes = post.votes.select{|x| x.vote != true}.count %>
       <% net_votes = up_votes - down_votes %>
-      <%= net_votes %>
-      <br>
+      <%= pluralize(net_votes,'vote') %>
 
       <% if logged_in? %>
         <%= link_to down_vote_post_path(post) do %>

@@ -1,4 +1,6 @@
 class VotesController < ApplicationController
+  before_action :require_user
+
   def up_vote_post
     @post = Post.find(params[:id])
     @posts = Post.all

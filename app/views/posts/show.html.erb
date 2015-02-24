@@ -42,9 +42,20 @@
 <% end %>
 
 <h3>Comments</h3>
+<%  %>
+<% comments = @post.comments.sort_by do |comment| %>
+  <% total_votes = comment.votes.reduce(0) do |m,vote| %>
+    <% if vote.vote %>
+      <% m + 1 %>
+    <% else %>
+      <% m - 1 %>
+    <% end %>
+  <% end %>
+<% end %>
+<%  %>
 
-<% if @post.comments.length != 0 %>
-  <% @post.comments.each do |comment| %>
+<% if comments.length != 0 %>
+  <% comments.reverse.each do |comment| %>
     <div class='row'>
       <div class='span0 well text-center'>
         <% if logged_in? %>
@@ -57,7 +68,7 @@
         <% up_votes = comment.votes.select{|x| x.vote == true}.count %>
         <% down_votes = comment.votes.select{|x| x.vote != true}.count %>
         <% net_votes = up_votes - down_votes %>
-        <%= net_votes %>
+        <%= pluralize(net_votes,'vote') %>
         <br>
 
         <% if logged_in? %>
