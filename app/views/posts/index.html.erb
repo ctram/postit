@@ -17,7 +17,7 @@
 
       <!-- # TODO: should be able to extract this into a partial########## -->
       <% if logged_in? %>
-        <%= link_to up_vote_post_path(post) do %>
+        <%= link_to up_vote_post_path(post), remote: true do %>
           <span class='icon-arrow-up'></span>
         <% end %>
       <% end %>
@@ -26,8 +26,9 @@
       <% up_votes = post.votes.select{|x| x.vote == true}.count %>
       <% down_votes = post.votes.select{|x| x.vote != true}.count %>
       <% net_votes = up_votes - down_votes %>
-      <%= pluralize(net_votes,'vote') %>
-
+      <span id='post_<%= post.id %>'>
+        <%= pluralize(net_votes,'vote') %>
+      </span>
       <% if logged_in? %>
         <%= link_to down_vote_post_path(post) do %>
           <span class='icon-arrow-down'></span>

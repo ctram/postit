@@ -10,4 +10,15 @@ class Post < ActiveRecord::Base
   validates :url, presence: true
   validates :description, presence: true
 
+  def net_votes
+   self.votes.reduce(0) do |m,v|
+     if v.vote
+       m + 1
+     else
+       m - 1
+     end
+   end
+   # return the net number of votes for Post object.
+ end
+
 end

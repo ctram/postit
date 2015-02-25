@@ -10,10 +10,39 @@ class VotesController < ApplicationController
 
     if user_net_votes + 1 <= 1
       @post.votes << @vote
-      redirect_to posts_path
+      respond_to do |format|
+        format.html do
+          redirect_to posts_path
+        end# takes a block
+        format.js
+      end
+      # @post.votes << @vote
+      # redirect_to posts_path
     else
       flash[:error] = "You cannot up vote this item anymore. You can still down vote, though."
-      render '/posts/index'
+
+      respond_to do |format|
+        format.js do
+          redirect_to 'posts/index'
+        end
+      end
+
+
+
+      # redirect_to 'posts/index'
+
+      #
+      # respond_to do |format|
+      #   format.html do
+      #     flash[:error] = "You cannot up vote this item anymore. You can still down vote, though."
+      #     render '/posts/index'
+      #   end
+      #   format.js do
+      #     flash[:error] = "You cannot up vote this item anymore. You can still down vote, though."
+      #     render 'posts/index'
+      #
+      #   end
+      # end
     end
   end
 

@@ -59,7 +59,7 @@
     <div class='row'>
       <div class='span0 well text-center'>
         <% if logged_in? %>
-          <%= link_to up_vote_comment_path(comment) do %>
+          <%= link_to up_vote_comment_path(comment), remote: true do %>
             <span class='icon-arrow-up'></span>
           <% end %>
         <% end %>
@@ -68,7 +68,9 @@
         <% up_votes = comment.votes.select{|x| x.vote == true}.count %>
         <% down_votes = comment.votes.select{|x| x.vote != true}.count %>
         <% net_votes = up_votes - down_votes %>
-        <%= pluralize(net_votes,'vote') %>
+        <span id='comment_<%= comment.id %>'>
+          <%= pluralize(net_votes,'vote') %>
+        </span>
         <br>
 
         <% if logged_in? %>

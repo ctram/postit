@@ -18,4 +18,6 @@ class Vote < ActiveRecord::Base
     net_votes
   end
 
+
+
 end
