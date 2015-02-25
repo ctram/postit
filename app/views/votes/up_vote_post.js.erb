@@ -1,1 +1,5 @@
-$('#post_<%= @post.id %>').html('<%= pluralize(@post.net_votes,'vote') %>');
+<% if @user_net_votes + 1 > 1 %>
+  alert('You cannot up vote more than once. You may still down vote, though.');
+<% else %>
+  $('#post_<%= @post.id %>').html('<%= pluralize(@post.net_votes,'vote') %>');
+<% end %>

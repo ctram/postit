@@ -7,17 +7,18 @@ class Vote < ActiveRecord::Base
       (vote.voteable_id == voteable_id) and (vote.user_id == user.id)
     end
     # return net votes by this user.
-    net_votes = user_votes.reduce(0) do |memo,vote|
-
-      if vote.vote
-        memo += 1
-      else
-        memo -= 1
+    if user_votes == []
+      return 0
+    else
+      net_votes = user_votes.reduce(0) do |memo,vote|
+        if vote.vote
+          memo += 1
+        elsif !vote.vote
+          memo -= 1
+        else
+          memo += 0
+        end
       end
     end
-    net_votes
   end
-
-
-
 end

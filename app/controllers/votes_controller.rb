@@ -5,10 +5,10 @@ class VotesController < ApplicationController
     @post = Post.find(params[:id])
     @posts = Post.all
     @vote = Vote.new(vote:true, user_id: session[:user_id], voteable_type:'Post', voteable_id: @post.id)
+    @user_net_votes = Vote.sum_votes_by_user_by_voteable_id @vote.voteable_id, User.find(session[:user_id])
 
-    user_net_votes = Vote.sum_votes_by_user_by_voteable_id @vote.voteable_id, User.find(session[:user_id])
 
-    if user_net_votes + 1 <= 1
+    if @user_net_votes + 1 <= 1
       @post.votes << @vote
       respond_to do |format|
         format.html do
@@ -16,33 +16,16 @@ class VotesController < ApplicationController
         end# takes a block
         format.js
       end
-      # @post.votes << @vote
-      # redirect_to posts_path
     else
-      flash[:error] = "You cannot up vote this item anymore. You can still down vote, though."
-
       respond_to do |format|
-        format.js do
-          redirect_to 'posts/index'
+        format.html do
+          flash[:error] = "You cannot up vote this item anymore. You can still down vote, though."
+          render '/posts/index'
         end
+        format.js
       end
 
-
-
-      # redirect_to 'posts/index'
-
-      #
-      # respond_to do |format|
-      #   format.html do
-      #     flash[:error] = "You cannot up vote this item anymore. You can still down vote, though."
-      #     render '/posts/index'
-      #   end
-      #   format.js do
-      #     flash[:error] = "You cannot up vote this item anymore. You can still down vote, though."
-      #     render 'posts/index'
-      #
-      #   end
-      # end
+# TODO: Prevent User from voting more than once, up or down.
     end
   end
 
@@ -51,9 +34,9 @@ class VotesController < ApplicationController
     @posts = Post.all
     @vote = Vote.new(vote:false, user_id: session[:user_id], voteable_type:'Post', voteable_id: @post.id)
 
-    user_net_votes = Vote.sum_votes_by_user_by_voteable_id @vote.voteable_id, User.find(session[:user_id])
+    @user_net_votes = Vote.sum_votes_by_user_by_voteable_id @vote.voteable_id, User.find(session[:user_id])
 
-    if user_net_votes - 1 >=  -1
+    if @user_net_votes - 1 >=  -1
       @post.votes << @vote
       redirect_to posts_path
     else
