@@ -9,6 +9,7 @@ class VotesController < ApplicationController
 
 
     if @user_net_votes + 1 <= 1
+      
       @post.votes << @vote
       respond_to do |format|
         format.html do
@@ -36,12 +37,23 @@ class VotesController < ApplicationController
 
     @user_net_votes = Vote.sum_votes_by_user_by_voteable_id @vote.voteable_id, User.find(session[:user_id])
 
-    if @user_net_votes - 1 >=  -1
+    if @user_net_votes - 1 >= -1
+      
       @post.votes << @vote
-      redirect_to posts_path
+      respond_to do |format|
+        format.html do
+          redirect_to posts_path
+        end# takes a block
+        format.js
+      end
     else
-      flash[:error] = "You cannot down vote this item anymore. You can still up vote, though."
-      render '/posts/index'
+      respond_to do |format|
+        format.html do
+          flash[:error] = "You cannot down vote this item anymore. You can still up vote, though."
+          render '/posts/index'
+        end
+        format.js
+      end
     end
   end
 

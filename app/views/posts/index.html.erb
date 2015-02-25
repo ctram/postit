@@ -30,7 +30,7 @@
         <%= pluralize(net_votes,'vote') %>
       </span>
       <% if logged_in? %>
-        <%= link_to down_vote_post_path(post) do %>
+        <%= link_to down_vote_post_path(post), remote: true do %>
           <span class='icon-arrow-down'></span>
         <% end %>
       <% end %>

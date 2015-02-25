@@ -13,7 +13,7 @@ class Vote < ActiveRecord::Base
       net_votes = user_votes.reduce(0) do |memo,vote|
         if vote.vote
           memo += 1
-        elsif !vote.vote
+        elsif !vote.vote      
           memo -= 1
         else
           memo += 0
