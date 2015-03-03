@@ -42,7 +42,6 @@
 <% end %>
 
 <h3>Comments</h3>
-<%  %>
 <% comments = @post.comments.sort_by do |comment| %>
   <% total_votes = comment.votes.reduce(0) do |m,vote| %>
     <% if vote.vote %>
@@ -74,7 +73,7 @@
         <br>
 
         <% if logged_in? %>
-          <%= link_to down_vote_comment_path(comment) do %>
+          <%= link_to down_vote_comment_path(comment), remote:true do %>
             <span class='icon-arrow-down'></span>
           <% end %>
         <% end %>

@@ -14,5 +14,4 @@
       # end
       #
       # resources :categories, only: [:new, :create, :show]
-
-  # you added routes manually.
+      # You added routes manually.

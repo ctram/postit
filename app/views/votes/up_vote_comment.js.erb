@@ -1,0 +1,5 @@
+<% if @user_net_votes + 1 > 1 %>
+  alert('You cannot up vote more than once. You may still down vote, though.');
+<% else %>
+  $('#comment_<%= @comment.id %>').html('<%= pluralize(@comment.net_votes,'vote') %>');
+<% end %>
