@@ -54,12 +54,12 @@ class VotesController < ApplicationController
   end
 
   def up_vote_comment
-    @comment = Comment.find_by params[:id]
+    @comment = Comment.find(params[:id])
     @comments = Comment.all
     @post = Post.find_by slug: @comment.post.slug
     @vote = Vote.new(vote:true, user_id: session[:user_id], voteable_type:'comment', voteable_id: @comment.id)
-    @user_net_votes = Vote.sum_votes_by_user_by_voteable_id(@vote.voteable_id, User.find(session[:user_id])
-    binding.pry
+    @user_net_votes = Vote.sum_votes_by_user_by_voteable_id(@vote.voteable_id, User.find(session[:user_id]))
+
     if @user_net_votes + 1 <= 1
       @comment.votes << @vote
       respond_to do |format|
