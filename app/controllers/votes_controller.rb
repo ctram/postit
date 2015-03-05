@@ -1,14 +1,14 @@
 class VotesController < ApplicationController
   before_action :require_user
+  before_action :set_post, only: [:up_vote_post, :down_vote_post]
+
 
   def up_vote_post
-    @post = Post.find(params[:id])
     @posts = Post.all
     @vote = Vote.new(vote:true, user_id: session[:user_id], voteable_type:'Post', voteable_id: @post.id)
     @user_net_votes = Vote.sum_votes_by_user_by_voteable_id @vote.voteable_id, User.find(session[:user_id])
 
     if @user_net_votes + 1 <= 1
-
       @post.votes << @vote
       respond_to do |format|
         format.html do
@@ -24,13 +24,10 @@ class VotesController < ApplicationController
         end
         format.js
       end
-
-# TODO: Prevent User from voting more than once, up or down.
     end
   end
 
   def down_vote_post
-    @post = Post.find(params[:id])
     @posts = Post.all
     @vote = Vote.new(vote:false, user_id: session[:user_id], voteable_type:'Post', voteable_id: @post.id)
 
@@ -57,13 +54,12 @@ class VotesController < ApplicationController
   end
 
   def up_vote_comment
-    @comment = Comment.find(params[:id])
+    @comment = Comment.find_by params[:id]
     @comments = Comment.all
-    @post = Post.find(@comment.post.id)
+    @post = Post.find_by slug: @comment.post.slug
     @vote = Vote.new(vote:true, user_id: session[:user_id], voteable_type:'comment', voteable_id: @comment.id)
-
-    @user_net_votes = Vote.sum_votes_by_user_by_voteable_id @vote.voteable_id, User.find(session[:user_id])
-
+    @user_net_votes = Vote.sum_votes_by_user_by_voteable_id(@vote.voteable_id, User.find(session[:user_id])
+    binding.pry
     if @user_net_votes + 1 <= 1
       @comment.votes << @vote
       respond_to do |format|
@@ -93,6 +89,12 @@ class VotesController < ApplicationController
         format.js
       end
     end
+  end
+
+  private
+
+  def set_post
+    @post = Post.find_by slug: params[:id]
   end
 
 end

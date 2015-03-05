@@ -4,9 +4,9 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(params.require(:comment).permit(:body))
     @comment.user_id = current_user.id
-    @comment.post = Post.find(params[:post_id] )
+    @comment.post = Post.find_by slug: params[:post_id]
     @comments = Comment.all
-    @post = Post.find(params[:post_id])
+    @post = Post.find_by slug: params[:post_id]
 
     if @comment.save
       flash[:notice] = 'Comment saved'

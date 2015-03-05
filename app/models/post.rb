@@ -10,6 +10,8 @@ class Post < ActiveRecord::Base
   validates :url, presence: true
   validates :description, presence: true
 
+  before_save :generate_slug
+
   def net_votes
     self.votes.reduce(0) do |m,v|
       if v.vote
@@ -21,4 +23,11 @@ class Post < ActiveRecord::Base
    # return the net number of votes for Post object.
   end
 
+  def generate_slug
+    self.slug = self.title.gsub(' ', '-').downcase
+  end
+
+  def to_param
+    self.slug
+  end
 end

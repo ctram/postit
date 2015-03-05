@@ -11,7 +11,8 @@ class PostsController < ApplicationController
     @comment = Comment.new
     @comments = Comment.all
     @categories = Category.all
-    @post = Post.find(params[:id])
+    # @post = Post.find_by(slug: params[:id])
+
     @title = @post.title
   end
 
@@ -52,7 +53,8 @@ class PostsController < ApplicationController
   end
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.find_by(slug: params[:id])
+
   end
 
 end

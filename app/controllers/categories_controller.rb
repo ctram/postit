@@ -1,11 +1,12 @@
 # require 'pry'
 class CategoriesController < ApplicationController
+  before_action :set_category, only: [:show, :edit, :update]
+
   def index
     @categories = Category.all
   end
 
   def show
-    @category = Category.find(params[:id])
   end
 
   def new
@@ -24,16 +25,13 @@ class CategoriesController < ApplicationController
   end
 
   def edit
-    @category = Category.find(params[:id])
     @title = 'edit'
   end
 
   def update
-    @category = Category.find(params[:id])
     @category.update(category_params)
     redirect_to categories_path
   end
-
 
   private
 
@@ -41,7 +39,8 @@ class CategoriesController < ApplicationController
     params.require(:category).permit!
   end
 
-
-
+  def set_category
+    @category = Category.find_by(slug: params[:id])
+  end
 
 end
