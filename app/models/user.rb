@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include Slugable
+
   has_many :posts
   has_many :comments
   has_secure_password validations: false
@@ -25,7 +27,4 @@ class User < ActiveRecord::Base
     self.slug = self.username.downcase
   end
 
-  def to_param
-    self.slug
-  end
 end

@@ -1,6 +1,7 @@
 class Post < ActiveRecord::Base
   include Voteable
-  
+  include Slugable
+
   belongs_to :user
   has_many :comments
   has_many :post_categories
@@ -30,7 +31,4 @@ class Post < ActiveRecord::Base
     self.slug = self.title.gsub(' ', '-').downcase
   end
 
-  def to_param
-    self.slug
-  end
 end
